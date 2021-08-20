@@ -1,0 +1,98 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+
+public class JumpRandom : MonoBehaviour
+{
+
+    List<int> areas;
+    List<int> areasTemp;
+    List<int> deletedValues;
+
+    public int x;
+    public int y;
+    int totalDot;
+
+    private int i;
+
+    int theIndex;
+
+    int theIndexValue;
+    int theIndexTemp;
+
+    int quotient;
+    int remainder;
+    int posX;
+    int posY;
+
+
+    void Start()
+    {
+        totalDot = x * y;
+
+        areas = new List<int>();
+        areasTemp = new List<int>();
+
+        deletedValues = new List<int>();
+
+        for (i = 1; i < totalDot + 1; i++)
+        {
+            areas.Add(i);
+        }
+    }
+
+
+    void Update()
+    {
+
+        if (Input.GetKeyDown(KeyCode.Q))
+        {
+            for (int tryCount = 0; tryCount < totalDot * 2; tryCount++)
+            {
+                if (deletedValues.Count == totalDot + 1)
+                {
+                    break;
+                }
+
+                theIndex = Random.Range(1, totalDot + 1); //0,1,2,3,4,5,6,7,8 
+
+                if (deletedValues.Contains(theIndex) == true)
+                {
+                    areas.Remove(theIndex);
+                    theIndex = 0;
+                    deletedValues.Remove(0);
+                }
+
+                deletedValues.Add(theIndex);
+
+                Debug.Log(theIndex);
+
+                if (theIndex != 0)
+                {
+                    break;
+                }            
+            }
+
+            if (theIndex != 0)
+            {
+                quotient = theIndex / x;
+
+                remainder = theIndex % x;
+
+                theIndex = 0;
+
+
+                posX = remainder;
+                posY = quotient + 1;
+
+                quotient = 0;
+                remainder = 0;
+            }
+
+            Debug.Log(posX);
+
+            Debug.Log(posY);
+        }
+    }
+}
